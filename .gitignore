@@ -1,0 +1,11 @@
+# 用正确的内容覆盖 .gitignore 文件
+@"
+node_modules/
+.idea/
+docs/.vuepress/.temp/
+docs/.vuepress/.cache/
+docs/.vuepress/dist/
+.DS_Store
+Thumbs.db
+*.log
+"@ | Out-File -FilePath .gitignore -Encoding utf8

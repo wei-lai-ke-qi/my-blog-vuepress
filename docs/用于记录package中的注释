@@ -1,0 +1,5 @@
+ "dev": "vuepress dev docs",      // 启动开发服务器
+    "build": "vuepress build docs",  // 构建静态文件
+    "new": "node scripts/new-post.js" // 一键创建新文章
+
+      "type": "commonjs",多出来的

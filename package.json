@@ -1,0 +1,24 @@
+{
+  "name": "my-blog-vuepress",
+  "version": "1.0.0",
+  "description": "项目描述",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "docs:build": "vuepress build docs",
+    "new": "node scripts/new-post.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-rc.26",
+    "typescript": "^5.4.5",
+    "vue": "^3.5.31",
+    "vuepress": "^2.0.0-rc.26",
+    "vuepress-theme-plume": "^1.0.0-rc.192"
+  }
+}

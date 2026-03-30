@@ -1,0 +1,131 @@
+---
+title: '测试笔记'
+#createTime:时间不写，主题默认通过读取 Git 历史来获取文件的创建时间
+# 添加分类 (支持单个字符串或数组)
+categories:
+  - 技术随笔
+  - 生活记录
+  - 测试
+# 添加标签 (通常为数组)
+tags:
+  - VuePress
+  - 博客搭建
+  - 后端开发
+---
+# 我的第一篇文章
+
+欢迎来到我的博客！这是我在这里写下的第一段文字。
+
+## 为什么写博客？
+
+写作是很好的思考方式...
+
+
+# 我的第一篇博客
+
+这里是正文内容...
+
+## 小标题
+
+正文...
+
+
+属性	        类型	                    默认值	说明
+title	    string	                文件名	文章标题
+createTime	string	                当前时间	创建时间
+tags	    string[]	            []	    文章标签
+sticky	    boolean | number	    false	置顶标识，数字越大排序越前
+draft	    boolean	                false	草稿模式，构建后隐藏
+cover	    string	                ''	    封面图路径
+coverStyle	PostCoverStyle	        null	封面样式配置
+excerpt	    boolean | string	    ''	    摘要内容，支持自动提取
+
+
+
+
+
+
+
+# 查看修改的文件
+git status
+
+# 添加所有修改
+git add .
+
+# 提交（附上说明信息）
+git commit -m "发布新文章：文章标题"
+git commit -m "发布新文章：我的第一篇博客"           # 具体说明
+git commit -m "修复文章中的错别字"                   # 修复类
+git commit -m "更新关于页面"                         # 修改类
+git commit -m "添加 3 篇技术笔记"                    # 批量添加
+
+
+# 推送到 GitHub
+git push origin main
+
+origin：远程仓库的别名（你的 GitHub 仓库）
+main：要推送的分支名
+
+
+
+
+# 第一步：查看修改
+git status
+# 输出：
+# On branch main
+# Untracked files:
+#   docs/blog/hello-world.md
+
+# 第二步：添加文件
+git add docs/blog/hello-world.md
+# 或者添加所有修改：git add .
+
+# 第三步：查看状态确认
+git status
+# 输出：
+# On branch main
+# Changes to be committed:
+#   new file:   docs/blog/hello-world.md
+
+# 第四步：提交
+git commit -m "发布新文章：Hello World"
+
+# 第五步：推送
+git push origin main
+
+# 输出：
+# Enumerating objects: 5, done.
+# Counting objects: 100% (5/5), done.
+# Writing objects: 100% (3/3), 312 bytes | 312.00 KiB/s, done.
+# To https://github.com/wei-lai-ke-qi/my-blog-vuepress.git
+#    abc123..def456 main -> main
+
+
+
+
+
+
+# 查看修改了什么
+git status
+
+# 添加文件
+git add .
+
+# 再次确认
+git status
+
+# 提交
+git commit -m "发布新文章"
+
+# 推送
+git push origin main
+
+
+
+# 查看最近的提交记录
+git log --oneline -5
+
+# 输出示例：
+# abc1234 发布新文章：Hello World
+# def5678 修复样式问题
+# ghi9012 添加关于页面
