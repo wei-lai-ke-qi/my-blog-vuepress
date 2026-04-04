@@ -17,7 +17,7 @@ config:
           link: /blog/
           theme: brand
         - text: GitHub
-          link: https://github.com/yourname
+          link: https://github.com/wei-lai-ke-qi
           theme: alt
         - text: #预留
           link: #跳转链接

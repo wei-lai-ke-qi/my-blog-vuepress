@@ -21,7 +21,7 @@ export default defineUserConfig({
         navbar: [
             { text: '首页', link: '/' },
             { text: '博客', link: '/blog/' },
-            { text: '友情链接', link: 'https://www.baidu.com/Index.htm'},
+            { text: '网页集合', link: '/web_page/'},
         ],
         // 博客文章集合配置
         collections: [
