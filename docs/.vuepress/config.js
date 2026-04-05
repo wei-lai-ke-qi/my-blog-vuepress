@@ -2,6 +2,11 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { defineUserConfig } from 'vuepress'
 
+import { getDirname, path } from 'vuepress/utils'
+import { fileURLToPath } from 'url'
+
+const __dirname = getDirname(import.meta.url)
+
 export default defineUserConfig({
     // 添加这一行！根据你的仓库名设置 base
     // 如果你的仓库名是 username.github.io，则 base: '/'
@@ -16,45 +21,13 @@ export default defineUserConfig({
 
     bundler: viteBundler(),
     port: 9999,
-    theme: plumeTheme({
-        // 主题配置项
-        navbar: [
-            { text: '首页', link: '/' },
-            { text: '博客', link: '/blog/' },
-            { text: '网页集合', link: '/web_page/'},
-        ],
-        // 博客文章集合配置
-        collections: [
-            {
-                type: 'post',      // 文章类型
-                dir: 'blog',       // 文章存放目录
-                title: '博客',      // 页面标题
-                meta: {
-                    tags: true, // 是否显示标签
-                    /**
-                     * 是否显示创建时间，或设置时间格式
-                     * - 'short': 显示为 `2022-01-01`，默认
-                     * - 'long': 显示为 `2022-01-01 00:00:00`
-                     */
-                    createTime: true, // boolean | 'short' | 'long'
-                    readingTime: true, // 是否显示阅读时间估算
-                    wordCount: true, // 是否显示字数统计
-                },
-                autoFrontmatter: {
-                    title: true, // 自动生成标题
-                    createTime: true, // 自动生成创建时间
-                    permalink: true, // 自动生成永久链接
-                    transform: (data, context, locale) => { // 自定义转换
-                        data.foo ??= 'foo'
-                        return data
-                    }
-                },
-
-            },
-
-        ],
-
-
-    }),
+    theme: plumeTheme(),
+    alias: {
+        // 将主题默认的页脚组件指向你刚刚创建的新组件
+        '@theme/VPFooter.vue': path.resolve(
+            __dirname,  // 指向 .vuepress 目录
+            './components/MyFooter.vue', // 你的自定义组件路径
+        ),
+    },
 
 })
