@@ -10,7 +10,7 @@ export default defineThemeConfig({
         {
             text: '更多',
             items: [
-                {text:'来杯咖啡',link:'/More/sponsor/',icon:'mdi:local-cafe-outline'},
+                {text:'来杯咖啡',link:'/More/sponsor',icon:'mdi:local-cafe-outline'},
                 {   // 分组标题，自动不可点击
                     text: '相关文档',
                     items: [           // 这个分组下的可点击项
