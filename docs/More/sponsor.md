@@ -34,7 +34,7 @@ readingTime: false
   <div class="method-name">支付宝</div>
   <div class="method-desc">支付宝扫一扫，随意支持</div>
   <div class="qr-wrapper">
-    <img src="" alt="支付宝收款码" class="qr-code">
+    <img src="/image/WxQR.jpg" alt="支付宝收款码" class="qr-code">
     <div class="qr-hint">长按识别二维码</div>
   </div>
 </div>
