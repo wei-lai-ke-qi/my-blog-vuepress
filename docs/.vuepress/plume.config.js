@@ -6,7 +6,7 @@ export default defineThemeConfig({
     navbar: [
         { text: '首页', link: '/', icon: 'mdi:home' },
         { text: '博客', link: '/blog/', icon: 'mdi:blog' },
-        { text: '收藏夹', link: '/More/Favorites.md', icon: 'mdi:star' },
+        { text: '收藏夹', link: '/favorites/', icon: 'mdi:star' },
         {
             text: '更多',
             items: [
@@ -44,6 +44,16 @@ export default defineThemeConfig({
                     return data
                 }
             },
+        },
+        {
+            type: 'doc',          // 关键：设置为 'doc'
+            dir: 'favorites',     // 指向你的收藏夹目录
+            title: '我的收藏',     // 集合的显示名称
+            sidebar: 'auto',   // 可选：让主题根据目录结构自动生成侧边栏
+            // sidebar: [
+            //     { text: '常用工具', link: '/favorites/tools' },
+            //     { text: '学习网站', link: '/favorites/websites' },
+            // ]
         },
     ],
 

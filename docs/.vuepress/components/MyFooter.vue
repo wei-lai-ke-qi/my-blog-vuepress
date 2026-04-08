@@ -8,10 +8,14 @@
       </div>
 
       <div class="links">
-        <a href="" target="_blank" rel="noopener noreferrer">
-          贡献者
-        </a>
-        <a href="/" class="about-link">关于本站</a>
+<!--        没有贡献者-->
+        <a href="" target="_blank" rel="noopener noreferrer">贡献者</a>
+
+
+<!--        <a href="/More/About.md" class="about-link">关于本站</a>-->
+        <RouterLink to="/More/About.html" class="about-link">关于本站</RouterLink>
+
+
       </div>
     </div>
   </div>

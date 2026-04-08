@@ -1,5 +1,6 @@
 ---
 title: 关于本站
+readingTime: false
 ---
 ## 站点定位
 
