@@ -45,53 +45,248 @@ excerpt	    boolean | string	    ''	    摘要内容，支持自动提取
 
 
 
+Git 完整操作指南
 
+========================================
+1. 基础操作
+========================================
 
-# 查看修改的文件
+查看修改的文件：
 git status
 
-# 添加所有修改
-git add .
+添加修改到暂存区：
+git add .                    # 添加所有修改
+git add README.md            # 添加指定文件
+git add src/components/      # 添加整个目录
 
-# 提交（附上说明信息）
-git commit -m "发布新文章：文章标题"
-git commit -m "发布新文章：我的第一篇博客"           # 具体说明
-git commit -m "修复文章中的错别字"                   # 修复类
-git commit -m "更新关于页面"                         # 修改类
-git commit -m "添加 3 篇技术笔记"                    # 批量添加
+提交修改：
+git commit -m "发布新文章：我的第一篇博客"    # 发布新文章
+git commit -m "修复文章中的错别字"           # 修复问题
+git commit -m "更新关于页面"                 # 更新内容
+git commit -m "添加 3 篇技术笔记"            # 批量添加
+
+推送到远程仓库：
+git push origin main         # 推送到 main 分支
+git push origin dev          # 推送到 dev 分支
+git push origin <分支名>      # 推送到指定分支
+
+说明：origin 是远程仓库的别名（你的 GitHub 仓库）
+      main 是要推送的分支名
 
 
-# 推送到 GitHub
+========================================
+2. 分支操作
+========================================
+# 1. 确保在 main 分支
+git checkout main
+
+# 2. 更新 main 分支
+git pull origin main
+
+# 3. 合并 dev 分支
+git merge dev
+
+# 4. 推送到远程
 git push origin main
 
-origin：远程仓库的别名（你的 GitHub 仓库）
-main：要推送的分支名
+查看分支：
+git branch                   # 查看本地分支
+git branch -a                # 查看所有分支（包括远程）
+git branch -r                # 查看远程分支
+
+创建分支：
+git branch <分支名>                           # 创建分支（不切换）
+git checkout -b <分支名>                      # 创建并切换到新分支（推荐）
+git checkout -b <本地分支名> origin/<远程分支名>  # 基于远程分支创建
+
+切换分支：
+git checkout <分支名>         # 切换到指定分支
+git checkout -               # 切换到上一个分支
+
+拉取远程分支：
+git checkout -b <分支名> origin/<分支名>       # 拉取并切换
+git pull origin <分支名>                      # 更新本地分支
+
+合并分支：
+git merge <分支名>            # 合并指定分支到当前分支
+git merge --no-ff <分支名>    # 合并并保留分支历史
+git merge --abort             # 取消合并
+
+删除分支：
+git branch -d <分支名>        # 删除本地分支（已合并）
+git branch -D <分支名>        # 强制删除本地分支（未合并）
+git push origin --delete <分支名>  # 删除远程分支
+
+重命名分支：
+git branch -m <新分支名>       # 重命名当前分支
+git branch -m <旧分支名> <新分支名>  # 重命名其他分支
+
+推送分支：
+git push -u origin <分支名>   # 首次推送（设置上游）
+git push origin <分支名>      # 推送修改
 
 
-分支功能完美地支撑了现代开发中最常见的两种协作模式，你之前遇到的"贡献者页面"问题，正是它的典型应用场景。
+========================================
+3. 直接协作模式（你目前的情况）
+========================================
 
-1. 直接协作（你目前的情况）
+作为自己博客项目的拥有者，你拥有直接推送权限，工作流程如下：
 
-你作为自己博客项目的拥有者，拥有直接推送权限，工作流程很简洁：
+第一步：创建分支
+在本地用 git checkout -b update-readme 命令创建一个新分支（比如叫 update-readme），
+所有改动都在这个分支上进行。
 
-第一步：创建分支：在本地用 git checkout -b update-readme 命令创建一个新分支（比如叫 update-readme），所有改动都在这个分支上进行。
+示例：
+git checkout -b update-readme
 
-第二步：推送分支：改动完成后，用 git push origin update-readme 命令把新分支推送到GitHub。
+第二步：推送分支
+改动完成后，用 git push origin update-readme 命令把新分支推送到 GitHub。
 
-第三步：发起 Pull Request (PR)：在GitHub网页上，为 update-readme 分支创建一个指向 main 主分支的Pull Request（PR），这就相当于发起了一个"请求合并代码"的申请。
+示例：
+git add .
+git commit -m "更新 README 文件"
+git push origin update-readme
 
-第四步：审查与合并：你（或团队成员）可以在这个PR里审查代码、讨论修改，确认无误后，点击"Merge"按钮，将 update-readme 分支合并进 main 分支，新改动就正式生效了。
+第三步：发起 Pull Request (PR)
+在 GitHub 网页上，为 update-readme 分支创建一个指向 main 主分支的 Pull Request (PR)，
+这就相当于发起了一个"请求合并代码"的申请。
 
-2. 跨项目协作（Fork + Pull Request）
+操作步骤：
+1. 打开 GitHub 仓库页面
+2. 点击 "Pull requests" 标签
+3. 点击 "New pull request"
+4. base 选择 main，compare 选择 update-readme
+5. 点击 "Create pull request"
+6. 填写标题和描述
+7. 点击 "Create pull request"
 
-当你想要参与一个没有直接推送权限的开源项目时，GitHub的流程稍有不同，但核心仍然是分支：
+第四步：审查与合并
+你可以在 PR 里审查代码、讨论修改，确认无误后，点击 "Merge" 按钮，
+将 update-readme 分支合并进 main 分支，新改动就正式生效了。
 
-第一步：派生（Fork）项目：在GitHub上点击"Fork"按钮，这个项目的完整代码就会被复制到你的GitHub账户下，成为你的远程仓库副本。
-
-第二步：克隆与开发：将你账户下的这个派生仓库克隆到本地，然后创建新分支，在新分支上进行代码修改。
-
-第三步：推送并发起PR：将修改后的分支推送到你的GitHub远程仓库，然后登录GitHub，在你的派生仓库页面点击"New Pull Request"，向原项目（不是你的派生仓库）的 main 分支发起合并请求。
-
-第四步：审查与合并：原项目的维护者会看到你的PR，并进行代码审查和讨论。如果改动被接受，维护者会将你的分支合并进原项目，你就成功完成了一次开源贡献。
+合并后可以删除分支：
+git branch -d update-readme
+git push origin --delete update-readme
 
 
+========================================
+4. 跨项目协作模式（Fork + Pull Request）
+========================================
+
+当你想要参与一个没有直接推送权限的开源项目时，使用 Fork + Pull Request 流程：
+
+第一步：派生（Fork）项目
+在 GitHub 上点击 "Fork" 按钮，这个项目的完整代码就会被复制到你的 GitHub 账户下，
+成为你的远程仓库副本。
+
+第二步：克隆与开发
+将你账户下的这个派生仓库克隆到本地，然后创建新分支，在新分支上进行代码修改。
+
+示例：
+git clone https://github.com/你的用户名/项目名.git
+cd 项目名
+git checkout -b fix-bug
+
+# 修改代码...
+git add .
+git commit -m "修复某个 Bug"
+
+第三步：推送并发起 PR
+将修改后的分支推送到你的 GitHub 远程仓库，然后登录 GitHub，
+在你的派生仓库页面点击 "New Pull Request"，向原项目（不是你的派生仓库）的 main 分支发起合并请求。
+
+示例：
+git push origin fix-bug
+
+操作步骤：
+1. 打开你的派生仓库页面
+2. 点击 "Pull requests" 标签
+3. 点击 "New pull request"
+4. base 选择原项目的 main，compare 选择你的 fix-bug
+5. 点击 "Create pull request"
+6. 填写详细的改动说明
+7. 点击 "Create pull request"
+
+第四步：审查与合并
+原项目的维护者会看到你的 PR，并进行代码审查和讨论。
+如果改动被接受，维护者会将你的分支合并进原项目，你就成功完成了一次开源贡献。
+
+
+========================================
+5. 分支工作流程示意图
+========================================
+
+直接协作模式：
+main（主分支）
+  │
+  └── feature/new-feature（功能分支）
+         │
+         └── 开发 → 提交 → PR → 合并到 main
+
+跨项目协作模式：
+原项目/main
+  │
+  └── 你的 Fork/原项目
+         │
+         └── 你的分支
+                │
+                └── 开发 → 提交 → PR → 原项目维护者合并
+
+
+========================================
+6. 常用命令速查表
+========================================
+
+操作                          命令
+─────────────────────────────────────────────────
+查看状态                      git status
+添加所有修改                  git add .
+提交                          git commit -m "说明"
+推送                          git push origin <分支名>
+拉取                          git pull origin <分支名>
+
+查看分支                      git branch
+创建分支                      git checkout -b <分支名>
+切换分支                      git checkout <分支名>
+合并分支                      git merge <分支名>
+删除本地分支                  git branch -d <分支名>
+删除远程分支                  git push origin --delete <分支名>
+
+克隆仓库                      git clone <仓库地址>
+查看远程仓库                  git remote -v
+查看提交历史                  git log --oneline
+
+
+========================================
+7. 常见问题解决
+========================================
+
+问题1：git push 失败（远程有新提交）
+解决：先拉取再推送
+git pull origin main
+git push origin main
+
+问题2：合并时出现冲突
+解决：
+git status                    # 查看冲突文件
+# 手动编辑冲突文件，删除 <<<<<<< ======= >>>>>>> 标记
+git add .
+git commit -m "解决冲突"
+git push origin main
+
+问题3：不小心在 main 分支上修改了代码
+解决：
+git stash                     # 暂存修改
+git checkout dev              # 切换到正确分支
+git stash pop                 # 恢复修改
+
+问题4：想要撤销上次提交
+解决：
+git reset --soft HEAD~1       # 撤销提交，保留修改
+git reset --hard HEAD~1       # 撤销提交，丢弃修改
+
+问题5：忘记切换到新分支就开始写代码
+解决：
+git checkout -b new-branch    # 创建新分支，修改会保留
+git add .
+git commit -m "说明"

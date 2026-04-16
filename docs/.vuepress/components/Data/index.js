@@ -1,6 +1,6 @@
 // docs/.vuepress/components/index.js
 export { default as ParticleBackground } from '../ParticleBackground.vue'
-export { default as ModernBlogHome } from '../ModernBlogHome.vue'
+export { default as ModernBlogHome } from '../modernBlogHome.vue'
 export { default as AuthorCard } from '../AuthorCard.vue'
 export { default as QuoteCard } from '../QuoteCard.vue'
 export { default as TimeCard } from '../TimeCard.vue'
