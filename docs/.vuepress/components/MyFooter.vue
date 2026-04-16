@@ -9,7 +9,7 @@
 
       <div class="links">
 <!--        没有贡献者-->
-        <a href="" target="_blank" rel="noopener noreferrer">贡献者</a>
+<!--        <a href="" target="_blank" rel="noopener noreferrer">贡献者</a>-->
 
 
 <!--        <a href="/More/About.md" class="about-link">关于本站</a>-->
@@ -25,7 +25,7 @@
 .vp-footer {
   margin-top: 60px;
   padding: 24px 20px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
+  //background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 

@@ -68,65 +68,30 @@ origin：远程仓库的别名（你的 GitHub 仓库）
 main：要推送的分支名
 
 
+分支功能完美地支撑了现代开发中最常见的两种协作模式，你之前遇到的"贡献者页面"问题，正是它的典型应用场景。
+
+1. 直接协作（你目前的情况）
+
+你作为自己博客项目的拥有者，拥有直接推送权限，工作流程很简洁：
+
+第一步：创建分支：在本地用 git checkout -b update-readme 命令创建一个新分支（比如叫 update-readme），所有改动都在这个分支上进行。
+
+第二步：推送分支：改动完成后，用 git push origin update-readme 命令把新分支推送到GitHub。
+
+第三步：发起 Pull Request (PR)：在GitHub网页上，为 update-readme 分支创建一个指向 main 主分支的Pull Request（PR），这就相当于发起了一个"请求合并代码"的申请。
+
+第四步：审查与合并：你（或团队成员）可以在这个PR里审查代码、讨论修改，确认无误后，点击"Merge"按钮，将 update-readme 分支合并进 main 分支，新改动就正式生效了。
+
+2. 跨项目协作（Fork + Pull Request）
+
+当你想要参与一个没有直接推送权限的开源项目时，GitHub的流程稍有不同，但核心仍然是分支：
+
+第一步：派生（Fork）项目：在GitHub上点击"Fork"按钮，这个项目的完整代码就会被复制到你的GitHub账户下，成为你的远程仓库副本。
+
+第二步：克隆与开发：将你账户下的这个派生仓库克隆到本地，然后创建新分支，在新分支上进行代码修改。
+
+第三步：推送并发起PR：将修改后的分支推送到你的GitHub远程仓库，然后登录GitHub，在你的派生仓库页面点击"New Pull Request"，向原项目（不是你的派生仓库）的 main 分支发起合并请求。
+
+第四步：审查与合并：原项目的维护者会看到你的PR，并进行代码审查和讨论。如果改动被接受，维护者会将你的分支合并进原项目，你就成功完成了一次开源贡献。
 
 
-# 第一步：查看修改
-git status
-# 输出：
-# On branch main
-# Untracked files:
-#   docs/blog/hello-world.md
-
-# 第二步：添加文件
-git add docs/blog/hello-world.md
-# 或者添加所有修改：git add .
-
-# 第三步：查看状态确认
-git status
-# 输出：
-# On branch main
-# Changes to be committed:
-#   new file:   docs/blog/hello-world.md
-
-# 第四步：提交
-git commit -m "发布新文章：Hello World"
-
-# 第五步：推送
-git push origin main
-
-# 输出：
-# Enumerating objects: 5, done.
-# Counting objects: 100% (5/5), done.
-# Writing objects: 100% (3/3), 312 bytes | 312.00 KiB/s, done.
-# To https://github.com/wei-lai-ke-qi/my-blog-vuepress.git
-#    abc123..def456 main -> main
-
-
-
-
-
-
-# 查看修改了什么
-git status
-
-# 添加文件
-git add .
-
-# 再次确认
-git status
-
-# 提交
-git commit -m "发布新文章"
-
-# 推送
-git push origin main
-
-
-
-# 查看最近的提交记录
-git log --oneline -5
-
-# 输出示例：
-# abc1234 发布新文章：Hello World
-# def5678 修复样式问题
-# ghi9012 添加关于页面

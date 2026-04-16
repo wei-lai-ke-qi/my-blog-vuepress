@@ -3,6 +3,8 @@ title: 我的收藏
 sidebar: true
 editLink: false
 readingTime: false
+createTime: 2026/04/03 22:54:14
+permalink: /favorites/
 ---
 
 # ⭐ 我的收藏

@@ -1,0 +1,9 @@
+// docs/.vuepress/components/index.js
+export { default as ParticleBackground } from '../ParticleBackground.vue'
+export { default as ModernBlogHome } from '../ModernBlogHome.vue'
+export { default as AuthorCard } from '../AuthorCard.vue'
+export { default as QuoteCard } from '../QuoteCard.vue'
+export { default as TimeCard } from '../TimeCard.vue'
+export { default as SkillsCard } from '../SkillsCard.vue'
+export { localQuotes, getRandomQuote, getAllQuotes } from './quotes.js'
+export { default as FriendLinks } from '../FriendLinks.vue'
