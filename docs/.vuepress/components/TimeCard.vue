@@ -25,8 +25,8 @@
 </template>
 
 <script>
+// 导入 lunisolar
 import lunisolar from 'lunisolar'
-
 export default {
   name: 'TimeCard',
 
@@ -35,8 +35,8 @@ export default {
       currentDate: '',      // 公历日期字符串
       currentTime: '',      // 当前时间字符串
       location: '加载中...', // 地理位置
-      lunarDate: '',        // 农历日期（如：正月十五）
-      ganzhi: '',           // 干支纪年（如：甲辰年【龙年】）
+      lunarDate: '加载中...', // 农历日期
+      ganzhi: '加载中...',   // 干支纪年
       timer: null           // 定时器ID
     }
   },
@@ -54,12 +54,11 @@ export default {
   methods: {
     /**
      * 更新日期、时间和农历信息
-     * 使用 lunisolar 库获取农历数据
      */
     updateDateTime() {
       const now = new Date()
 
-      // ========== 公历日期处理 ==========
+      // 公历日期处理
       const year = now.getFullYear()
       const month = String(now.getMonth() + 1).padStart(2, '0')
       const day = String(now.getDate()).padStart(2, '0')
@@ -69,23 +68,75 @@ export default {
       this.currentDate = `${year}年${month}月${day}日 ${weekday}`
       this.currentTime = now.toLocaleTimeString('zh-CN', { hour12: false })
 
-      // ========== 农历信息（使用 lunisolar） ==========
-      const lunar = lunisolar(now)
+      // ========== 农历信息 ==========
+      try {
+        if (!lunisolar) {
+          throw new Error('lunisolar 未加载')
+        }
 
-      // 方式1：获取格式化的农历日期（推荐）
-      // 格式：正月十五、腊月廿三、闰四月初二
-      this.lunarDate = lunar.format('lMlD')
+        const lunar = lunisolar(now)
 
-      // 方式2：获取完整的干支纪年（包含生肖）
-      // 返回格式如：甲辰年【龙年】
-      const ganzhiYear = lunar.format('lY')  // 干支年：甲辰
-      const zodiac = lunar.zodiac            // 生肖：龙
-      this.ganzhi = `${ganzhiYear}年【${zodiac}年】`
+        if (lunar && typeof lunar.format === 'function') {
+          // 获取农历日期
+          this.lunarDate = lunar.format('lMlD')
+
+          // 获取干支年（如：丙午）
+          let ganzhiYear = ''
+
+          // 尝试多种方式获取干支
+          try {
+            // 方式1：通过 char8 获取
+            if (lunar.char8 && lunar.char8.year) {
+              ganzhiYear = lunar.char8.year.name
+            }
+            // 方式2：通过 format 获取干支
+            if (!ganzhiYear) {
+              ganzhiYear = lunar.format('G')
+            }
+            // 方式3：手动计算
+            if (!ganzhiYear || ganzhiYear.includes('年')) {
+              const gan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+              const zhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+              const ganIndex = (year - 4) % 10
+              const zhiIndex = (year - 4) % 12
+              ganzhiYear = gan[ganIndex] + zhi[zhiIndex]
+            }
+          } catch (e) {
+            // 手动计算
+            const gan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+            const zhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+            const ganIndex = (year - 4) % 10
+            const zhiIndex = (year - 4) % 12
+            ganzhiYear = gan[ganIndex] + zhi[zhiIndex]
+          }
+
+          // 显示格式：2026【丙午年】
+          this.ganzhi = `${year}【${ganzhiYear}年】`
+
+        } else {
+          throw new Error('lunisolar 格式化失败')
+        }
+      } catch (error) {
+        console.error('农历获取失败:', error)
+        // 降级：手动计算
+        this.lunarDate = `${now.getMonth() + 1}月${now.getDate()}日`
+
+        // 手动计算干支
+        const gan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+        const zhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+        const ganIndex = (year - 4) % 10
+        const zhiIndex = (year - 4) % 12
+        const ganzhiYear = gan[ganIndex] + zhi[zhiIndex]
+
+        // 显示格式：2026【丙午年】
+        this.ganzhi = `${year}【${ganzhiYear}年】`
+      }
     },
+
+
 
     /**
      * 获取地理位置信息
-     * 通过 IP 定位 API 获取用户所在地区
      */
     async getLocation() {
       try {
@@ -95,7 +146,6 @@ export default {
         if (ipData && !ipData.error) {
           const regionEn = ipData.region || ''
 
-          // 英文省份名 → 中文映射表
           const regionMap = {
             'Beijing': '北京', 'Shanghai': '上海', 'Tianjin': '天津', 'Chongqing': '重庆',
             'Zhejiang': '浙江', 'Jiangsu': '江苏', 'Guangdong': '广东', 'Sichuan': '四川',

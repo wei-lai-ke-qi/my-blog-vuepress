@@ -11,5 +11,3 @@ config:
 
 [//]: # (组件)
 <modernBlogHome/>
-
-<Home/>
