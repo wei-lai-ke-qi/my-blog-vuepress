@@ -16,7 +16,7 @@ export default defineUserConfig({
 
     // VuePress 基础配置
     lang: 'zh-CN',
-    title: '暮云衔山的博客',
+    title: '暮云·码录',
     description: '分享技术与生活',
 
     bundler: viteBundler(),

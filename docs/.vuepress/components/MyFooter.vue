@@ -1,4 +1,5 @@
 <script setup>
+import Resume from "../../More/Resume.vue";
 </script>
 <template>
   <div class="vp-footer">
@@ -10,7 +11,7 @@
       <div class="links">
 <!--        没有贡献者-->
 <!--        <a href="" target="_blank" rel="noopener noreferrer">贡献者</a>-->
-
+            <resume />
 
 <!--        <a href="/More/About.md" class="about-link">关于本站</a>-->
         <RouterLink to="/More/About.html" class="about-link">关于本站</RouterLink>

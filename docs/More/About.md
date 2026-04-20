@@ -2,6 +2,7 @@
 title: 关于本站
 readingTime: false
 ---
+<Resume/>
 ## 站点定位
 
 一个集技术博客、收藏夹导航于一体的个人站点。
@@ -48,3 +49,4 @@ readingTime: false
 ---
 
 最后更新：2026年4月
+
