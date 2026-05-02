@@ -5,8 +5,9 @@ export default defineThemeConfig({
     // 导航栏配置
     navbar: [
         { text: '首页', link: '/', icon: 'mdi:home' },
-        { text: '博客', link: '/blog/', icon: 'mdi:blog' },
+        { text: '博客', link: '/blog/', icon: 'mdi:blog'},
         { text: '收藏夹', link: '/favorites/', icon: 'mdi:star' },
+        { text: '笔记', link: '/notes/', icon: 'mdi:notebook' },
         {
             text: '更多',
             items: [
@@ -54,6 +55,17 @@ export default defineThemeConfig({
             //     { text: '常用工具', link: '/favorites/tools' },
             //     { text: '学习网站', link: '/favorites/websites' },
             // ]
+        },
+
+        {
+            type: 'doc',
+            dir: 'notes',   // 需要在 docs/ 下创建这个文件夹
+            title: '笔记',
+            sidebar: 'auto',            // 自动生成侧边栏
+            meta: {
+                createTime: true,       // 显示创建时间
+                wordCount: true,        // 显示字数
+            }
         },
     ],
 

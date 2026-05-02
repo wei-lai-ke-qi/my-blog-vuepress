@@ -12,9 +12,6 @@
           {{ manualCooldown > 0 ? `冷却中 ${manualCooldown}s` : '🔄 换一句' }}
         </button>
       </div>
-<!--      <div v-if="autoCountdown <= 10" class="auto-refresh-tip">
-        ⏱️ {{ autoCountdown }}秒后自动刷新
-      </div>-->
     </div>
   </div>
 </template>
@@ -45,7 +42,7 @@ export default {
     if (typeof window !== 'undefined') {
       window.addEventListener('online', this.handleOnline)
       window.addEventListener('offline', this.handleOffline)
-      this.fetchHitokoto()
+      this.initQuote()  // 初始化格言
       this.startAutoRefresh()
     }
   },
@@ -58,6 +55,23 @@ export default {
     }
   },
   methods: {
+    /**
+     * 初始化格言（开发环境直接使用本地数据）
+     */
+    initQuote() {
+      const isDev = process.env.NODE_ENV === 'development'
+      if (isDev) {
+        // 开发环境：直接使用本地数据，不调用API
+        this.hitokoto = getRandomQuote()
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔧 开发环境：使用本地格言数据')
+        }
+      } else {
+        // 生产环境：调用API获取
+        this.fetchHitokoto()
+      }
+    },
+
     /**
      * 检查API是否可用（失败后5分钟内不再使用）
      */
@@ -91,7 +105,12 @@ export default {
      */
     handleOnline() {
       this.isOnline = true
-      this.fetchHitokoto()
+      const isDev = process.env.NODE_ENV === 'development'
+      if (!isDev) {
+        this.fetchHitokoto()
+      } else {
+        this.hitokoto = getRandomQuote()
+      }
     },
 
     /**
@@ -128,6 +147,16 @@ export default {
      * 获取一言数据（多API备用）
      */
     async fetchHitokoto() {
+      // 开发环境：直接使用本地数据，不调用API
+      const isDev = process.env.NODE_ENV === 'development'
+      if (isDev) {
+        this.hitokoto = getRandomQuote()
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔧 开发环境：使用本地格言数据')
+        }
+        return
+      }
+
       // 离线状态直接使用本地数据
       if (!this.isOnline) {
         this.hitokoto = getRandomQuote()
@@ -242,7 +271,17 @@ export default {
       if (!this.canManualRefresh) return
 
       this.isRefreshing = true
-      await this.fetchHitokoto()
+
+      const isDev = process.env.NODE_ENV === 'development'
+      if (isDev) {
+        // 开发环境：使用本地数据，模拟加载延迟效果
+        await new Promise(resolve => setTimeout(resolve, 300))
+        this.hitokoto = getRandomQuote()
+      } else {
+        // 生产环境：调用API
+        await this.fetchHitokoto()
+      }
+
       this.isRefreshing = false
       this.autoCountdown = 30
       this.manualCooldown = 20
@@ -253,6 +292,8 @@ export default {
      * 启动自动刷新定时器
      */
     startAutoRefresh() {
+      const isDev = process.env.NODE_ENV === 'development'
+
       this.autoTimer = setInterval(() => {
         if (this.autoCountdown > 0 && !this.isRefreshing) {
           this.autoCountdown--
@@ -261,6 +302,11 @@ export default {
           this.autoRefresh()
         }
       }, 1000)
+
+      // 开发环境提示
+      if (isDev && process.env.NODE_ENV === 'development') {
+        console.log('🔧 开发环境：自动刷新使用本地数据')
+      }
     },
 
     /**
@@ -268,7 +314,15 @@ export default {
      */
     async autoRefresh() {
       this.isRefreshing = true
-      await this.fetchHitokoto()
+
+      const isDev = process.env.NODE_ENV === 'development'
+      if (isDev) {
+        // 开发环境：使用本地数据，不调用API
+        this.hitokoto = getRandomQuote()
+      } else {
+        await this.fetchHitokoto()
+      }
+
       this.isRefreshing = false
       this.autoCountdown = 30
     },
