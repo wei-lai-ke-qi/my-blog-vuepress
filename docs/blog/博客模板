@@ -60,7 +60,7 @@ git add README.md            # 添加指定文件
 git add src/components/      # 添加整个目录
 
 提交修改：
-git commit -m "发布新文章：我的第一篇博客"    # 发布新文章
+git commit -m "发布新文章"               # 发布新文章
 git commit -m "修复文章中的错别字"           # 修复问题
 git commit -m "更新关于页面"                 # 更新内容
 git commit -m "添加 3 篇技术笔记"            # 批量添加
