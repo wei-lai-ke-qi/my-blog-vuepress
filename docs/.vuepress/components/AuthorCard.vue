@@ -1,7 +1,7 @@
 <template>
   <div class="card author-card">
     <div class="avatar">
-      <img src="../static/image/聪音_头像.jpg">
+      <img src="../public/image/聪音_头像.jpg">
     </div>
     <p class="author-name">暮云衔山</p>
     <div class="contact-info">
