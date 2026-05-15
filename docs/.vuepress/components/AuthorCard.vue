@@ -1,17 +1,19 @@
 <template>
   <div class="card author-card">
     <div class="avatar">
-      <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=暮云衔山" alt="avatar">
+      <img src="../static/image/聪音_头像.jpg">
     </div>
-    <h2 class="author-name">暮云衔山</h2>
+    <p class="author-name">暮云衔山</p>
     <div class="contact-info">
       <a href="https://github.com/wei-lai-ke-qi/my-blog-vuepress" target="_blank" class="contact-item">
         <span class="contact-icon">📦</span>
         <span class="contact-text">GitHub</span>
       </a>
-      <a href="mailto:3127169374@qq.com" class="contact-item">
+      <a href="mailto:3127169374@qq.com" class="contact-item"
+         @mouseenter="showEmail = true" @mouseleave="showEmail = false"
+      >
         <span class="contact-icon">✉️</span>
-        <span class="contact-text">QQ邮箱</span>
+        <span class="contact-text">{{ showEmail ? '3127169374@qq.com' : 'QQ邮箱' }}</span>
       </a>
       <a href="/blog/" class="contact-item">
         <span class="contact-icon">📝</span>
@@ -21,10 +23,14 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import { ref } from 'vue'
+
+defineOptions({
   name: 'AuthorCard'
-}
+})
+
+const showEmail = ref(false)
 </script>
 
 <style scoped>
