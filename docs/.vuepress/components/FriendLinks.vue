@@ -10,11 +10,6 @@
         </div>
         <div class="header-right">
           <span class="welcome-text">✨ 欢迎交换友链 ~</span>
-          <div class="all-friends-btn">
-<!--            <button class="all-friends-btn-text" @click="viewAllFriends">-->
-<!--              📋 所有好友-->
-<!--            </button>-->
-          </div>
         </div>
       </div>
 
@@ -27,10 +22,20 @@
             class="friend-card-item"
             target="_blank"
             rel="noopener noreferrer"
-            :title="friend.name + ' - ' + friend.desc"
+            :title="friend.name + ' - ' + (friend.desc || '')"
         >
           <div class="friend-avatar">
-            <span class="avatar-emoji">{{ friend.emoji }}</span>
+            <!-- ✅ 修改这里：判断是图片还是文字 -->
+            <img
+                v-if="isImageUrl(friend.avatar || friend.emoji)"
+                :src="friend.avatar || friend.emoji"
+                class="avatar-image"
+                :alt="friend.name"
+                @error="handleImageError"
+            >
+            <span v-else class="avatar-emoji">
+              {{ (friend.avatar || friend.emoji || '🔗') !== '#' ? (friend.avatar || friend.emoji || '🔗') : '🔗' }}
+            </span>
           </div>
           <div class="friend-name">{{ friend.name }}</div>
         </a>
@@ -40,29 +45,44 @@
 </template>
 
 <script>
-// 从单独的文件导入友链数据
 import { friends } from './Data/friendsData.js'
 
 export default {
   name: 'FriendLinks',
   data() {
     return {
-      friends: friends  // 直接使用导入的数据
+      friends: friends
     }
   },
   methods: {
     viewAllFriends() {
-      // 跳转到完整的友情链接页面
       window.location.href = '/friends/'
-      // 或者如果是路由跳转：
-      // this.$router.push('/friends')
+    },
+    // 判断是否为图片URL
+    isImageUrl(url) {
+      if (!url || url === '#') return false
+      // 匹配图片扩展名或路径特征
+      return url.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i) ||
+          url.startsWith('/image/') ||
+          url.startsWith('http')
+    },
+    // 图片加载失败时的处理
+    handleImageError(event) {
+      event.target.style.display = 'none'
+      const parent = event.target.parentElement
+      if (parent) {
+        const fallbackSpan = document.createElement('span')
+        fallbackSpan.className = 'avatar-emoji'
+        fallbackSpan.textContent = '🔗'
+        parent.appendChild(fallbackSpan)
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-/* 样式保持不变 */
+/* 保留原有样式，添加图片相关样式 */
 .friend-links-wrapper {
   margin: 20px 0;
 }
@@ -129,24 +149,6 @@ export default {
   white-space: nowrap;
 }
 
-.all-friends-btn-text {
-  background: rgba(100, 150, 255, 0.15);
-  border: 1px solid rgba(100, 150, 255, 0.3);
-  padding: 3px 10px;
-  border-radius: 16px;
-  font-size: 0.65rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.7);
-  white-space: nowrap;
-}
-
-.all-friends-btn-text:hover {
-  background: rgba(100, 150, 255, 0.3);
-  color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-1px);
-}
-
 .friend-grid {
   display: flex;
   flex-wrap: wrap;
@@ -183,8 +185,18 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 6px;
+  overflow: hidden;
 }
 
+/* ✅ 新增：图片样式 */
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ✅ 修改：emoji 样式 */
 .avatar-emoji {
   font-size: 1.5rem;
 }
@@ -214,17 +226,17 @@ export default {
     font-size: 0.6rem;
   }
 
-  .all-friends-btn-text {
-    font-size: 0.6rem;
-    padding: 2px 8px;
-  }
-
   .friend-card-item {
     width: 70px;
     padding: 8px 4px;
   }
 
   .friend-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .avatar-image {
     width: 38px;
     height: 38px;
   }
