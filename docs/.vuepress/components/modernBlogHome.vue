@@ -1,5 +1,8 @@
 <template>
   <div class="modern-blog-home">
+
+<!--    <HeroSection />-->
+
     <div class="container">
       <!-- ========== 左侧边栏区域 ========== -->
       <!-- 放置个人信息和静态内容卡片 -->
@@ -17,6 +20,11 @@
         <FriendLinks />
       </main>
     </div>
+
+
+
+
+
   </div>
 </template>
 
@@ -31,7 +39,7 @@ export default {
 /* ========== 页面容器 ========== */
 .modern-blog-home {
   min-height: 100vh;           /* 最小高度为视口高度 */
-  padding: 20px;               /* 内边距，避免内容贴边 */
+  //padding: 20px;               /* 内边距，避免内容贴边 */
   position: relative;          /* 相对定位，为子元素定位提供参考 */
   //background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);  /* 深色渐变背景 */
 }

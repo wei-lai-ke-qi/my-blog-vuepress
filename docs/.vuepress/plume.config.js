@@ -11,8 +11,8 @@ export default defineThemeConfig({
         {
             text: '更多',
             items: [
-                {text:'来杯咖啡',link:'/More/sponsor.md',icon:'mdi:local-cafe-outline'},
-                {text:'关于',link:'/More/About.md',icon:'mdi:information'},
+                {text:'来杯咖啡',link:'/More/sponsor',icon:'mdi:local-cafe-outline'},
+                {text:'关于',link:'/More/About',icon:'mdi:information'},
                 {   // 分组标题，自动不可点击
                     text: '相关文档',
                     items: [           // 这个分组下的可点击项
@@ -24,6 +24,20 @@ export default defineThemeConfig({
         },
 
     ],
+    // 个人资料卡牌配置
+    profile: {
+        name: '暮云衔山',           // 显示名字
+        description: '用代码解构世界，以文字安放自己', // 显示描述
+        avatar: '/image/聪音_头像.jpg',      // 头像路径（放在 public 目录下）
+
+    },
+    // 社交链接
+    social: [
+        { icon: 'github', link: 'https://github.com/wei-lai-ke-qi/my-blog-vuepress' },
+        { icon: 'mdi:email', link: 'mailto:work@log-i.cn' },
+        // 其他社交平台...
+    ],
+
     // 博客文章集合配置
     collections: [
         {

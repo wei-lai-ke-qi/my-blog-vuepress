@@ -5,7 +5,7 @@ import Resume from "../../More/Resume.vue";
   <div class="vp-footer">
     <div class="footer-content">
       <div class="copyright">
-        <span>© 2026 暮云衔山</span>  <span class="separator">•</span>  <span>技术让生活更美好</span>
+        <span>© 2026 暮云衔山</span>  <span class="separator">•</span>  <span>用代码解构世界，以文字安放自己</span>
       </div>
 
       <div class="links">

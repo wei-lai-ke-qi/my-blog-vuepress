@@ -3,9 +3,14 @@
 export const friends = [
     // ========== 技术类 ==========
     {
+        name: 'Yeelightの小屋',
+        url: 'https://feiniaobf.github.io/yeekox-blog/blog/',
+        avatar: '/image/Yeelightの小屋.svg',  // ✅ 正确
+    },
+    {
         name: '暂无',
         url: '#',
-        emoji: '#',
+        avatar: '#',
     },
 
 ]
